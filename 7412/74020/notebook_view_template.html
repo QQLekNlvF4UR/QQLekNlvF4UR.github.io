@@ -101,20 +101,38 @@
         
         update();
     </script>
-    <script>
-        // Get the query parameters from the URL
-        const params = new URLSearchParams(window.location.search);
     
-        // Get the 'proj' parameter value
+    <script>
+        const params = new URLSearchParams(window.location.search);
         const projectName = params.get('proj');
     
-        // If a project name is specified, update the iframe source
         if (projectName) {
+            // Update iframe src
             const iframe = document.querySelector('.iframe-container iframe');
             iframe.src = `${projectName}.html`;
+    
+            // Load JSON and update image and description
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    const projectData = data[projectName];
+                    if (projectData) {
+                        // Update image
+                        const img = document.querySelector('.left-panel img');
+                        img.src = projectData.img;
+    
+                        // Update description
+                        const desc = document.querySelector('.left-panel .description');
+                        desc.textContent = projectData.description;
+                    } else {
+                        console.warn(`No data found in JSON for project: ${projectName}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading project data:', error);
+                });
         }
     </script>
-    
 </body>
 </html>
 
