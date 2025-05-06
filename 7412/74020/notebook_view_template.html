@@ -126,6 +126,8 @@
                         // Update description
                         const desc = document.querySelector('.left-panel .description');
                         desc.textContent = projectData.description;
+
+                        document.title = projectData.title || 'Jupyter Notebook Viewer';
                     } else {
                         console.warn(`No data found in JSON for project: ${projectName}`);
                     }
