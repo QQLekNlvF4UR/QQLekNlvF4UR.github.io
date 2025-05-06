@@ -109,7 +109,9 @@
         if (projectName) {
             // Update iframe src
             const iframe = document.querySelector('.iframe-container iframe');
-            iframe.src = `${projectName}.html`;
+            const currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            iframe.src = `${currentPath}${projectName}.html`;
+            //iframe.src = `/${projectName}.html`;
     
             // Load JSON and update image and description
             fetch('projects.json')
