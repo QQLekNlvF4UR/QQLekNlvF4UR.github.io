@@ -150,6 +150,7 @@
       })
       .then(response => response.text())
       .then(data => {
+        document.getElementById("email").value="";
         alert("Thanks! You're on the list.");
       })
       .catch(error => {
