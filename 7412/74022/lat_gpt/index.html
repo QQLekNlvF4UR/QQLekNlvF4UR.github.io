@@ -139,13 +139,14 @@
     document.getElementById("emailForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const email = document.getElementById("email").value;
+      const campaign = "lat_gpt";
 
-      fetch("informaticsglobal.cloud/ad_tracker/submit_email.php", {
+      fetch("https://informaticsglobal.cloud/ad_tracker/submit_email.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: new URLSearchParams({ email })
+        body: new URLSearchParams({ campaign, email })
       })
       .then(response => response.text())
       .then(data => {
