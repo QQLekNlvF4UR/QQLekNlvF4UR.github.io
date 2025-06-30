@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transcriptor AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: monospace;
+    }
+    .background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+    .background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(6px) brightness(0.8);
+    }
+    .overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: -1;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300vh;
+      scroll-behavior: smooth;
+      color: white;
+    }
+    section {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    section:nth-child(1) h1 {
+      font-size: 3em;
+      margin-bottom: 0.5rem;
+    }
+    section:nth-child(1) p {
+      font-size: 1.5em;
+    }
+    section:nth-child(2) img {
+      max-width: 90%;
+      max-height: 400px;
+      margin-bottom: 1rem;
+    }
+    section:nth-child(2) ul {
+      list-style: none;
+    }
+    section:nth-child(2) li {
+      font-size: 1.2em;
+      margin: 0.3em 0;
+    }
+    section:nth-child(3) input[type=email] {
+      padding: 10px;
+      width: 250px;
+      margin-bottom: 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+      background-color: black;
+      color: white;
+    }
+    section:nth-child(3) button {
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    section:nth-child(3) button:hover {
+      background-color: white;
+      color: black;
+    }
+    @media (max-width: 768px) {
+      section:nth-child(1) h1 {
+        font-size: 2em;
+      }
+      section:nth-child(2) img {
+        max-height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <img src="transcriptor_ai.gif" alt="Background gif" />
+  </div>
+  <div class="overlay"></div>
+  <div class="container">
+    <section id="section1">
+      <img src="https://informaticsglobal.cloud/visit_tracker/ad_visit_tracker.php" width="1" height="1" alt="" style="display:none;" />
+      <h1>Transcriptor AI</h1>
+      <p>Give your content a second brain — and a voice.</p>
+    </section>
+
+    <section id="section2">
+      <img src="transcriptor_ai.gif" alt="App demo" />
+      <ul style="list-style-type: disc; padding-left: 20px;">
+        <li>🔍 Turn any podcast or video into a mind-mapped, clickable conversation.</li>
+        <li>🧠 Get GPT-powered summaries, emotional highlights, and social-ready content in seconds.</li>
+        <li>📦 One link in, infinite content out — transcripts, tweet threads, blog posts, and more.</li>
+      </ul>
+    </section>
+
+    <section id="section3">
+      <h2>Join Our Waiting List</h2>
+      <form id="emailForm">
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        <br />
+        <button type="submit">Notify Me</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById("emailForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const campaign = "transcriptor_ai";
+
+      fetch("https://informaticsglobal.cloud/ad_tracker/submit_email.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({ campaign, email })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("email").value="";
+        alert("Thanks! You're on the list.");
+      })
+      .catch(error => {
+        alert("Something went wrong. Please try again later.");
+        console.error("Error:", error);
+      });
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const sectionId = window.location.hash.substring(1);
+      if (sectionId) {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
